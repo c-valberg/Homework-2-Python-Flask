@@ -8,8 +8,6 @@ app = Flask(__name__)
 @app.get('/user/<int:uid>')
 @app.get('/user/@<string:username>')
 @app.get('/user/')
-@app.get('/lotto/<int:n>/<int:k>')
-@app.get('/search')
 
 def get_userinfo(uid=None, username=None):
 
@@ -21,6 +19,7 @@ def get_userinfo(uid=None, username=None):
     else:
        return f'User Profile: guest'
 
+@app.get('/lotto/<int:n>/<int:k>')
 def get_lotto(n=None, k = None):
 
    if k>n:
@@ -28,7 +27,8 @@ def get_lotto(n=None, k = None):
    
    lotto_numbers = random.sample(range(1, n + 1), k)
    return ' '.join(map(str, lotto_numbers))
-   
+
+@app.get('/search')
 def get_search():
     query = request.args.get('query', 'everything')
     page = request.args.get('page', '1')
